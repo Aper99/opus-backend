@@ -10,7 +10,7 @@ const RutaModel = sequelize.define('Ruta', {
     autoIncrement: true,
   },
   rut_descripcion: {
-    type: DataTypes.INTEGER,
+    type: DataTypes.STRING,
     allowNull: false,
   },
 }, {
