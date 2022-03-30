@@ -2,12 +2,12 @@ const express = require('express');
 const app = express();
 const port = 3000;
 
-const clienteRouter = require('./src/routes/cliente.routes');
-const empleadoRouter = require('./src/routes/empleado.routes');
-
 
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
+
+const clienteRouter = require('./src/routes/cliente.routes');
+const empleadoRouter = require('./src/routes/empleado.routes');
 
 
 app.get('/', (req, res) => {
