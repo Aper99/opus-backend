@@ -1,14 +1,12 @@
-const { query } = require("express");
-const bdService = require("../bd.service");
-const { ClienteModel } = require("../../models/cliente.model");
+const {ClienteModel} = require('../../models/cliente.model');
 
 const list = async (query, pageStart = 1, pageLimit = 10) => {
   const clienteModelResult = await ClienteModel.findAll();
 
-  const clienteArray = new Array();
+  const clienteArray = [];
 
   clienteModelResult.forEach((cliente) =>
-    clienteArray.push(cliente.dataValues)
+    clienteArray.push(cliente.dataValues),
   );
 
   return clienteArray;
@@ -63,4 +61,4 @@ const remove = async (codigo) => {
   }
 };
 
-module.exports = { list, getById, create, update,remove };
+module.exports = {list, getById, create, update, remove};

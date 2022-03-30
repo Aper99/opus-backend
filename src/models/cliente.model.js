@@ -1,5 +1,5 @@
-const { DataTypes } = require('sequelize');
-const { sequelize } = require('../services/bd.service')
+const {DataTypes} = require('sequelize');
+const {sequelize} = require('../services/bd.service');
 
 const ClienteModel = sequelize.define('Cliente', {
   // Model attributes are defined here
@@ -11,33 +11,33 @@ const ClienteModel = sequelize.define('Cliente', {
   },
   cli_nombre: {
     type: DataTypes.STRING,
-    allowNull: false, 
+    allowNull: false,
   },
   cli_rucci: {
     type: DataTypes.STRING,
-    allowNull: true, 
+    allowNull: true,
   },
   cli_telefono: {
     type: DataTypes.STRING,
-    allowNull: true, 
+    allowNull: true,
   },
   cli_email: {
     type: DataTypes.STRING,
-    allowNull: true, 
+    allowNull: true,
   },
   cli_direccion: {
     type: DataTypes.STRING,
-    allowNull: true, 
+    allowNull: true,
   },
   cli_codrut: {
     type: DataTypes.INTEGER,
-    allowNull: true, 
-  }
+    allowNull: true,
+  },
 }, {
   tableName: 'cliente',
   timestamps: false,
 });
 
 module.exports = {
-  ClienteModel
+  ClienteModel,
 };

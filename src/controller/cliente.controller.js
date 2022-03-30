@@ -1,4 +1,4 @@
-const clienteService = require("../services/clientes/cliente.service");
+const clienteService = require('../services/clientes/cliente.service');
 
 const list = async (req, res) => {
   const clientes = await clienteService.list(req.query.q);
@@ -11,9 +11,9 @@ const list = async (req, res) => {
 const getById = async (req, res) => {
   const cliente = await clienteService.getById(req.params.id);
 
-  let jsonResultado = req.query;
-  jsonResultado["success"] = true;
-  jsonResultado["cliente"] = cliente;
+  const jsonResultado = req.query;
+  jsonResultado['success'] = true;
+  jsonResultado['cliente'] = cliente;
 
   res.status(201).send(jsonResultado);
 };
@@ -44,4 +44,4 @@ const remove = async (req, res) => {
   });
 };
 
-module.exports = { list, getById, create, update, remove };
+module.exports = {list, getById, create, update, remove};
