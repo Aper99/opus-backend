@@ -1,4 +1,6 @@
+/* eslint-disable max-len */
 const {ClienteModel} = require('../../models/cliente.model');
+const {sequelize} = require('../bd.service');
 
 const list = async (query, pageStart = 1, pageLimit = 10) => {
   const clienteModelResult = await ClienteModel.findAll();
@@ -10,6 +12,18 @@ const list = async (query, pageStart = 1, pageLimit = 10) => {
   );
 
   return clienteArray;
+};
+
+const listFilter = async (query, pageStart = 1, pageLimit = 10) => {
+  let clienteResult = await sequelize.query(`SELECT * 
+                                                    FROM cliente
+                                                    WHERE UPPER(cli_nombre) LIKE :q
+                                                    ORDER BY cli_codigo`, {replacements: {q: (query ? '%'+ query.toUpperCase()+'%' : '%')}});
+
+  clienteResult = (clienteResult && clienteResult[0]) ? clienteResult[0] : [];
+
+
+  return clienteResult;
 };
 
 const getById = async (codigo) => {
@@ -61,4 +75,4 @@ const remove = async (codigo) => {
   }
 };
 
-module.exports = {list, getById, create, update, remove};
+module.exports = {list, getById, create, update, remove, listFilter};

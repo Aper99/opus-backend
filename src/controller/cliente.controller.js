@@ -8,6 +8,14 @@ const list = async (req, res) => {
   });
 };
 
+const listFilter = async (req, res) => {
+  const clientes = await clienteService.listFilter(req.query.q);
+  res.send({
+    success: true,
+    clientes,
+  });
+};
+
 const getById = async (req, res) => {
   const cliente = await clienteService.getById(req.params.id);
 
@@ -44,4 +52,4 @@ const remove = async (req, res) => {
   });
 };
 
-module.exports = {list, getById, create, update, remove};
+module.exports = {list, getById, create, update, remove, listFilter};
