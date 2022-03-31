@@ -11,6 +11,7 @@ const empleadoRouter = require('./src/routes/empleado.routes');
 const rutaRouter = require('./src/routes/ruta.routes');
 const sistemaRouter = require('./src/routes/sistema.routes');
 const tareaRouter = require('./src/routes/tarea.routes');
+const usuarioRouter = require('./src/routes/usuario.routes');
 
 
 app.get('/', (req, res) => {
@@ -22,6 +23,7 @@ app.use('/empleados', empleadoRouter);
 app.use('/rutas', rutaRouter);
 app.use('/sistemas', sistemaRouter);
 app.use('/tareas', tareaRouter);
+app.use('/usuarios', usuarioRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);
