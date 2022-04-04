@@ -20,7 +20,7 @@ const getById = async (req, res) => {
   const cliente = await clienteService.getById(req.params.id);
 
   const jsonResultado = req.query;
-  jsonResultado['success'] = true;
+  jsonResultado['success'] = cliente ? true : false;
   jsonResultado['cliente'] = cliente;
 
   res.status(201).send(jsonResultado);
@@ -45,11 +45,17 @@ const update = async (req, res) => {
 };
 
 const remove = async (req, res) => {
-  const booleanValue = await clienteService.remove(req.params.id);
-
-  res.status(202).send({
-    success: booleanValue,
-  });
+  try {
+    const booleanValue = await clienteService.remove(req.params.id);
+    res.status(202).send({
+      success: booleanValue,
+    });
+  } catch (error) {
+    res.status(200).send({
+      success: false,
+      error: error.parent.code,
+    });
+  }
 };
 
 module.exports = {list, getById, create, update, remove, listFilter};

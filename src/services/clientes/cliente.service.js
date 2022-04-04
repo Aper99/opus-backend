@@ -3,7 +3,7 @@ const {ClienteModel} = require('../../models/cliente.model');
 const {sequelize} = require('../bd.service');
 
 const list = async (query, pageStart = 1, pageLimit = 10) => {
-  const clienteModelResult = await ClienteModel.findAll();
+  const clienteModelResult = await ClienteModel.findAll({order: ['cli_codigo']});
 
   const clienteArray = [];
 
