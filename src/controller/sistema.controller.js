@@ -37,11 +37,17 @@ const update = async (req, res) => {
 };
 
 const remove = async (req, res) => {
-  const booleanValue = await sistemaService.remove(req.params.id);
-
-  res.status(202).send({
-    success: booleanValue,
-  });
+  try {
+    const booleanValue = await sistemaService.remove(req.params.id);
+    res.status(202).send({
+      success: booleanValue,
+    });
+  } catch (error) {
+    res.status(200).send({
+      success: false,
+      error: error.parent.code,
+    });
+  }
 };
 
 module.exports = {list, getById, create, update, remove};
