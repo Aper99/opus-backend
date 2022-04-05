@@ -1,7 +1,8 @@
 const {SistemaModel} = require('../../models/sistema.model');
 
 const list = async (query, pageStart = 1, pageLimit = 10) => {
-  const sistemaModelResult = await SistemaModel.findAll();
+  const sistemaModelResult = await SistemaModel.findAll(
+      {order: ['sis_codigo']});
 
   const sistemaArray = [];
 
