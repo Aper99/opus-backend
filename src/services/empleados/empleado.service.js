@@ -1,7 +1,8 @@
 const {EmpleadoModel} = require('../../models/empleado.model');
 
 const list = async (query, pageStart = 1, pageLimit = 10) => {
-  const empleadoModelResult = await EmpleadoModel.findAll();
+  const empleadoModelResult = await EmpleadoModel.findAll({
+    order: ['emp_codigo']});
 
   const empleadoArray = [];
 
