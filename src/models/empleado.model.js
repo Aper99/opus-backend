@@ -25,12 +25,8 @@ const EmpleadoModel = sequelize.define('Empleado', {
     type: DataTypes.STRING,
     allowNull: true,
   },
-  emp_email: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  emp_password: {
-    type: DataTypes.STRING,
+  emp_codusu: {
+    type: DataTypes.INTEGER,
     allowNull: false,
   },
 }, {
