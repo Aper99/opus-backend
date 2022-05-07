@@ -1,5 +1,8 @@
 const {DataTypes} = require('sequelize');
 const {sequelize} = require('../services/bd.service');
+const { ClienteModel } = require('./cliente.model');
+const { EmpleadoModel } = require('./empleado.model');
+const { SistemaModel } = require('./sistema.model');
 
 const TareaModel = sequelize.define('Tarea', {
   // Model attributes are defined here
@@ -54,6 +57,11 @@ const TareaModel = sequelize.define('Tarea', {
   tableName: 'tarea',
   timestamps: false,
 });
+
+TareaModel.belongsTo(SistemaModel, {foreignKey: 'tra_codsis'});
+TareaModel.belongsTo(ClienteModel, {foreignKey: 'tra_codcli'});
+TareaModel.belongsTo(EmpleadoModel, {foreignKey: 'tra_codemp'});
+
 
 module.exports = {
   TareaModel,
