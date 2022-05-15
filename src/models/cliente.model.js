@@ -1,5 +1,6 @@
 const {DataTypes} = require('sequelize');
 const {sequelize} = require('../services/bd.service');
+const {RutaModel} = require('../models/ruta.model');
 
 const ClienteModel = sequelize.define('Cliente', {
   // Model attributes are defined here
@@ -37,6 +38,8 @@ const ClienteModel = sequelize.define('Cliente', {
   tableName: 'cliente',
   timestamps: false,
 });
+
+ClienteModel.belongsTo(RutaModel, {foreignKey: 'cli_codrut', as: 'Ruta'});
 
 module.exports = {
   ClienteModel,

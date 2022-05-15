@@ -1,8 +1,8 @@
 const {DataTypes} = require('sequelize');
 const {sequelize} = require('../services/bd.service');
-const { ClienteModel } = require('./cliente.model');
-const { EmpleadoModel } = require('./empleado.model');
-const { SistemaModel } = require('./sistema.model');
+const {ClienteModel} = require('./cliente.model');
+const {EmpleadoModel} = require('./empleado.model');
+const {SistemaModel} = require('./sistema.model');
 
 const TareaModel = sequelize.define('Tarea', {
   // Model attributes are defined here

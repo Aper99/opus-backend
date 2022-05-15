@@ -3,7 +3,7 @@ const {TareaModel} = require('../../models/tarea.model');
 
 const list = async (query, pageStart = 1, pageLimit = 10) => {
   const tareaModelResult = await TareaModel.findAll(
-      {include: [{all: true}],
+      {include: [{all: true, nested: true}],
       });
 
   const tareaArray = [];
@@ -16,7 +16,7 @@ const list = async (query, pageStart = 1, pageLimit = 10) => {
 };
 
 const getById = async (codigo) => {
-  const tareaModelResult = await TareaModel.findByPk(codigo, {include: [{all: true}]});
+  const tareaModelResult = await TareaModel.findByPk(codigo, {include: [{all: true, nested: true}]});
 
   if (tareaModelResult) {
     return tareaModelResult.dataValues;
