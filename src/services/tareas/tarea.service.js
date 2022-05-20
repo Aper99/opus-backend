@@ -4,6 +4,7 @@ const {TareaModel} = require('../../models/tarea.model');
 const list = async (query, pageStart = 1, pageLimit = 10) => {
   const tareaModelResult = await TareaModel.findAll(
       {include: [{all: true, nested: true}],
+        order: ['tra_numero'],
       });
 
   const tareaArray = [];
