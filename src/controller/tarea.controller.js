@@ -1,7 +1,7 @@
 const tareaService = require('../services/tareas/tarea.service');
 
 const list = async (req, res) => {
-  const tareas = await tareaService.list(req.query.q);
+  const tareas = await tareaService.list(req.query);
   res.send({
     success: true,
     tareas,

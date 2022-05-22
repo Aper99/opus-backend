@@ -2,9 +2,18 @@
 const {TareaModel} = require('../../models/tarea.model');
 
 const list = async (query, pageStart = 1, pageLimit = 10) => {
+  const oWhere = {};
+  if (query.estado) {
+    oWhere['tra_estado'] =query.estado;
+  }
+
+
+  console.log(oWhere);
+
   const tareaModelResult = await TareaModel.findAll(
       {include: [{all: true, nested: true}],
         order: ['tra_numero'],
+        where: oWhere,
       });
 
   const tareaArray = [];
