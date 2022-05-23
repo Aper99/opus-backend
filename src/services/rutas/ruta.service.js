@@ -2,7 +2,7 @@
 const {RutaModel} = require('../../models/ruta.model');
 
 const list = async (query, pageStart = 1, pageLimit = 10) => {
-  const rutaModelResult = await RutaModel.findAll();
+  const rutaModelResult = await RutaModel.findAll({order: ['rut_codigo']});
 
   const rutaArray = [];
 
