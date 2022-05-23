@@ -45,11 +45,18 @@ const update = async (req, res) => {
 };
 
 const remove = async (req, res) => {
-  const booleanValue = await rutaService.remove(req.params.id);
+  try {
+    const booleanValue = await rutaService.remove(req.params.id);
 
-  res.status(202).send({
-    success: booleanValue,
-  });
+    res.status(202).send({
+      success: booleanValue,
+    });
+  } catch (error) {
+    res.status(200).send({
+      success: false,
+      error: error.parent.code,
+    });
+  }
 };
 
 module.exports = {list, listGroup, getById, create, update, remove};
