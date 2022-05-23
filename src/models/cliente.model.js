@@ -40,7 +40,7 @@ const ClienteModel = sequelize.define('Cliente', {
 });
 
 ClienteModel.belongsTo(RutaModel, {foreignKey: 'cli_codrut', as: 'Ruta'});
-
+RutaModel.hasMany(ClienteModel, {foreignKey: 'cli_codrut'});
 module.exports = {
   ClienteModel,
 };

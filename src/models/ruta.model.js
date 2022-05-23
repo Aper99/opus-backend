@@ -1,6 +1,7 @@
 const {DataTypes} = require('sequelize');
 const {sequelize} = require('../services/bd.service');
 
+
 const RutaModel = sequelize.define('Ruta', {
   // Model attributes are defined here
   rut_codigo: {
@@ -17,6 +18,7 @@ const RutaModel = sequelize.define('Ruta', {
   tableName: 'ruta',
   timestamps: false,
 });
+
 
 module.exports = {
   RutaModel,

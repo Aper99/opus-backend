@@ -1,7 +1,20 @@
+/* eslint-disable max-len */
 const {RutaModel} = require('../../models/ruta.model');
 
 const list = async (query, pageStart = 1, pageLimit = 10) => {
   const rutaModelResult = await RutaModel.findAll();
+
+  const rutaArray = [];
+
+  rutaModelResult.forEach((ruta) =>
+    rutaArray.push(ruta.dataValues),
+  );
+
+  return rutaArray;
+};
+
+const listGroup = async (query, pageStart = 1, pageLimit = 10) => {
+  const rutaModelResult = await RutaModel.findAll({include: [{all: true}], order: ['rut_codigo']});
 
   const rutaArray = [];
 
@@ -61,4 +74,4 @@ const remove = async (codigo) => {
   }
 };
 
-module.exports = {list, getById, create, update, remove};
+module.exports = {list, listGroup, getById, create, update, remove};

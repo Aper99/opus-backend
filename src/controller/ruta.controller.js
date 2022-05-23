@@ -8,6 +8,14 @@ const list = async (req, res) => {
   });
 };
 
+const listGroup = async (req, res) => {
+  const rutas = await rutaService.listGroup(req.query.q);
+  res.send({
+    success: true,
+    rutas,
+  });
+};
+
 const getById = async (req, res) => {
   const ruta = await rutaService.getById(req.params.id);
 
@@ -44,4 +52,4 @@ const remove = async (req, res) => {
   });
 };
 
-module.exports = {list, getById, create, update, remove};
+module.exports = {list, listGroup, getById, create, update, remove};
