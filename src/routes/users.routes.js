@@ -6,7 +6,7 @@ const authorizationMiddleware = require('../middleware/authorization.middleware'
 
 router.get('/', authorizationMiddleware.authorization, usersController.list);
 router.get('/find/:id', authorizationMiddleware.authorization, usersController.getById);
-router.post('/create', authorizationMiddleware.authorization, usersController.create);
+router.post('/create', usersController.create);
 router.put('/update', authorizationMiddleware.authorization, usersController.update);
 router.delete('/remove/:id', authorizationMiddleware.authorization, usersController.remove);
 router.post('/login', usersController.login);

@@ -1,64 +1,82 @@
-const {SistemaModel} = require('../../models/sistema.model');
+/* eslint-disable max-len */
+const {UsuarioModel} = require('../../models/usuario.model');
 const {sequelize} = require('../bd.service');
 const jwt = require('jsonwebtoken');
 
 const list = async (query, pageStart = 1, pageLimit = 10) => {
-  const sistemaModelResult = await SistemaModel.findAll({
-    order: ['sis_codigo'],
+  const usuarioModelResult = await UsuarioModel.findAll({
+    order: ['id'],
+    attributes: ['id', 'name', 'email'],
   });
 
-  const sistemaArray = [];
+  const usuarioArray = [];
 
-  sistemaModelResult.forEach((sistema) =>
-    sistemaArray.push(sistema.dataValues),
+  usuarioModelResult.forEach((usuario) =>
+    usuarioArray.push(usuario.dataValues),
   );
 
-  return sistemaArray;
+  return usuarioArray;
 };
 
 const getById = async (codigo) => {
-  const sistemaModelResult = await SistemaModel.findByPk(codigo);
+  const usuarioModelResult = await UsuarioModel.findByPk(codigo);
 
-  if (sistemaModelResult) {
-    return sistemaModelResult.dataValues;
+  if (usuarioModelResult) {
+    return usuarioModelResult.dataValues;
+  } else {
+    return null;
+  }
+};
+
+const getByEmail = async (email) => {
+  const usuarioModelResult = await UsuarioModel.findOne({where: {
+    email: email,
+  }});
+
+  if (usuarioModelResult) {
+    return usuarioModelResult.dataValues;
   } else {
     return null;
   }
 };
 
 const create = async (data) => {
-  const sistemaModelResult = await SistemaModel.create(data);
+  const usuarioModelResult = await UsuarioModel.create(data);
 
-  if (sistemaModelResult) {
-    return sistemaModelResult.dataValues;
+  if (usuarioModelResult) {
+    // eslint-disable-next-line no-unused-vars
+    const {passws, token, ...newUser} = usuarioModelResult.dataValues;
+    return newUser;
   } else {
     return null;
   }
 };
 
 const update = async (data) => {
-  const sistemaModelCount = await SistemaModel.update(data, {
+  const usuarioModelCount = await UsuarioModel.update(data, {
     where: {
-      sis_codigo: data.sis_codigo,
+      id: data.id,
     },
   });
 
-  if (sistemaModelCount > 0) {
-    const sistemaModelResult = await SistemaModel.findByPk(data.sis_codigo);
-    return sistemaModelResult.dataValues;
+  if (usuarioModelCount > 0) {
+    const usuarioModelResult = await UsuarioModel.findByPk(data.id);
+    // eslint-disable-next-line no-unused-vars
+    const {passws, token, ...newUser} = usuarioModelResult.dataValues;
+    return newUser;
   } else {
     return null;
   }
 };
 
 const remove = async (codigo) => {
-  const sistemaModelCount = await SistemaModel.destroy({
+  const usuarioModelCount = await UsuarioModel.destroy({
     where: {
-      sis_codigo: codigo,
+      id: codigo,
     },
   });
 
-  if (sistemaModelCount > 0) {
+  if (usuarioModelCount > 0) {
     return true;
   } else {
     return false;
@@ -69,7 +87,7 @@ const login = async (data) => {
   let usersResult = await sequelize.query(
       `SELECT id, name, token
                                         FROM users
-                                        WHERE name = :n
+                                        WHERE email = :n
                                         AND passwd = :p LIMIT 1`,
       {replacements: {n: data.username, p: data.password}},
   );
@@ -112,4 +130,4 @@ const logout = async (usuarioId) => {
   );
 };
 
-module.exports = {list, getById, create, update, remove, login, logout};
+module.exports = {list, getById, getByEmail, create, update, remove, login, logout};

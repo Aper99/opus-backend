@@ -1,38 +1,48 @@
 const usersService = require('../services/users/users.service');
 
 const list = async (req, res) => {
-  const sistemas = await usersService.list(req.query.q);
+  const usuarios = await usersService.list(req.query.q);
   res.send({
     success: true,
-    sistemas,
+    usuarios,
   });
 };
 
 const getById = async (req, res) => {
-  const sistema = await usersService.getById(req.params.id);
+  const usuario = await usersService.getById(req.params.id);
 
   const jsonResultado = req.query;
   jsonResultado['success'] = true;
-  jsonResultado['sistema'] = sistema;
+  jsonResultado['usuario'] = usuario;
 
   res.status(201).send(jsonResultado);
 };
 
 const create = async (req, res) => {
-  const sistema = await usersService.create(req.body);
+  // verifica primero si el email ya existe en otro usuario
+  const user = await usersService.getByEmail(req.body.email);
+  if (user) {
+    res.status(200).send({
+      success: false,
+      error: 'Usuario ya existe',
+    });
+    return;
+  }
+
+  const usuario = await usersService.create(req.body);
 
   res.status(202).send({
     success: true,
-    sistema,
+    usuario,
   });
 };
 
 const update = async (req, res) => {
-  const sistema = await usersService.update(req.body);
+  const usuario = await usersService.update(req.body);
 
   res.status(202).send({
     success: true,
-    sistema,
+    usuario,
   });
 };
 

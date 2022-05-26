@@ -2,28 +2,33 @@
 const {DataTypes} = require('sequelize');
 const {sequelize} = require('../services/bd.service');
 
-const UsuarioModel = sequelize.define('Usuario', {
+const UsuarioModel = sequelize.define('Users', {
   // Model attributes are defined here
-  usu_codigo: {
+  id: {
     autoIncrement: true,
     type: DataTypes.INTEGER,
     allowNull: false,
     primaryKey: true,
   },
-  usu_email: {
-    type: DataTypes.STRING(50),
-    allowNull: false,
-  },
-  usu_password: {
+  name: {
     type: DataTypes.STRING,
     allowNull: false,
   },
-  usu_nombre: {
-    type: DataTypes.STRING(30),
+  passwd: {
+    type: DataTypes.STRING,
     allowNull: false,
   },
+  token: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+  },
 }, {
-  tableName: 'usuario',
+  tableName: 'users',
   timestamps: false,
 });
 
