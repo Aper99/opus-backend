@@ -85,7 +85,7 @@ const remove = async (codigo) => {
 
 const login = async (data) => {
   let usersResult = await sequelize.query(
-      `SELECT id, name, token
+      `SELECT id, name, email, token
                                         FROM users
                                         WHERE email = :n
                                         AND passwd = :p LIMIT 1`,
@@ -101,7 +101,8 @@ const login = async (data) => {
       };
     } else {
       const payload = {
-        username: data.username,
+        email: data.username,
+        name: usersResult[0].name,
         id: usersResult[0].id,
       };
 
