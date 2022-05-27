@@ -6,6 +6,9 @@ const list = async (query, pageStart = 1, pageLimit = 10) => {
   if (query.estado) {
     oWhere['tra_estado'] =query.estado;
   }
+  if (query.usuario) {
+    oWhere['$Empleado.emp_codusu$'] =query.usuario;
+  }
 
   const tareaModelResult = await TareaModel.findAll(
       {include: [{all: true, nested: true}],
