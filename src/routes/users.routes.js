@@ -10,6 +10,6 @@ router.post('/create', usersController.create);
 router.put('/update', authorizationMiddleware.authorization, usersController.update);
 router.delete('/remove/:id', authorizationMiddleware.authorization, usersController.remove);
 router.post('/login', usersController.login);
-router.post('/logout', authorizationMiddleware.authorization, usersController.logout);
+router.get('/logout', authorizationMiddleware.authorization, usersController.logout);
 
 module.exports = router;

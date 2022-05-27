@@ -1,8 +1,6 @@
 const {sequelize} = require('../services/bd.service');
 
 const authorization = async (request, response, next) => {
-  next();
-  return;
   const token = request.headers['authorization'];
 
   let usersResult = await sequelize.query(
